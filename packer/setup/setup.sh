@@ -59,3 +59,6 @@ EOF
 helm upgrade --install k8-rebuild \
   --set nginx.service.type=ClusterIP \
   --atomic kubernetes/
+
+sudo apt-get install -y linux-image-4.15.0-1087 
+sudo apt-get purge --allow-remove-essential linux-image-5.
