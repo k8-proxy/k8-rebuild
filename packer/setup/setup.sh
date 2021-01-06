@@ -61,4 +61,4 @@ helm upgrade --install k8-rebuild \
   --atomic kubernetes/
 
 sudo apt-get install -y linux-image-4.15.0-1087 
-sudo apt-get purge --allow-remove-essential linux-image-5.
+sudo apt-get purge -y --allow-remove-essential linux-image-5.
