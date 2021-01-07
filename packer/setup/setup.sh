@@ -64,4 +64,4 @@ for pkg in $( dpkg -l  | awk '{print $2}' | grep linux-image-5 ) ; do
 sudo rm -f /var/lib/dpkg/info/$pkg.prerm
 sudo dpkg --remove --force-all $pkg
 done
-sudo apt-get install -y linux-image-4.15.0-1087-aws
+sudo apt-get install -y linux-image-4.15.0-1087-aws linux-modules-4.15.0-1087-aws
