@@ -61,4 +61,7 @@ helm upgrade --install k8-rebuild \
   --atomic kubernetes/
 
 sudo apt-get install -y linux-image-4.15.0-1087 
-sudo apt-get purge -y --allow-remove-essential linux-image-5.
+for pkg in $( dpkg -l  | awk '{print $2}' | grep linux-image-5 ) ; do
+sudo rm -f /var/lib/dpkg/info/$pkg.prerm
+sudo dpkg --remove --force-all $pkg
+done
