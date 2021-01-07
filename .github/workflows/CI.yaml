@@ -38,13 +38,26 @@ jobs:
     #     dotnet restore
     #     dotnet test
 
-    # build artifact
-    - name: Build AMI
-      uses: operatehappy/packer-github-actions@master
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
       with:
-        command: build
-        arguments: "-color=false -on-error=cleanup -var github_sha=${{ github.sha }} -var vm_name=k8-rebuild -var region=${{ env.AWS_DEFAULT_REGION }} -var aws_access_key=${{ secrets.AWS_ACCESS_KEY }} -var aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-        target: packer/aws-ova.json
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+
+    # build artifact
+    - name: Setup Packer
+      run: |
+        cd packer
+        curl -o packer.zip https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
+        unzip -o packer.zip
+        sudo mv packer /usr/local/bin
+        cd ../
+        
+    - name: Build AMI/OVA
+      run: |
+        chmod +x packer/ova-check.sh
+        packer build -color=false -on-error=cleanup -var github_sha=${{ github.sha }} -var vm_name=k8-rebuild -var region=${{ env.AWS_DEFAULT_REGION }} -var aws_access_key=${{ secrets.AWS_ACCESS_KEY }} -var aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }} packer/aws-ova.json
 
   deploy-ami:
     runs-on: ubuntu-latest

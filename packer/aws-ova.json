@@ -21,7 +21,7 @@
         "source_ami_filter": {
             "filters": {
             "virtualization-type": "hvm",
-            "name": "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
+            "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
             "root-device-type": "ebs"
             },
             "owners": ["099720109477"],
@@ -65,6 +65,15 @@
             "type": "shell",
             "script": "./packer/setup/cleanup.sh",
             "execute_command": "chmod +x {{.Path}}; sudo {{.Path}}"
+        },
+        {
+         "type": "shell-local",
+         "inline": "aws ec2 create-instance-export-task --region {{user `region`}} --instance-id {{build `ID`}} --target-environment vmware --export-to-s3-task file://packer/ova-export.json > out.json"
+        },
+        {
+            "type": "shell-local",
+            "script": "packer/ova-check.sh",
+            "environment_vars": "OVA_NAME=k8-rebuild-{{user `github_sha`}}.ova"
         }
       ]
   }
