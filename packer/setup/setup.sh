@@ -17,6 +17,7 @@ spec:
   valuesContent: |-
     ssl:
       enabled: true
+      enforced: true
       insecureSkipVerify: true
       generateTLS: true
 EOF
