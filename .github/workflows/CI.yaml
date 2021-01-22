@@ -116,7 +116,7 @@ jobs:
           ami_id="${{ steps.deploy.outputs.ami_id }}"
           cd vmware-scripts/HealthFunctionalTests/filedrop
           npm install
-          sed -i "s/3.133.161.191/$instance_ip/g" cypress/integration/filedrop.spec.js
+          sed -i -r "s/([0-9]{1,3}\.){3}[0-9]{1,3}/$instance_ip/g" cypress/integration/filedrop.spec.js
           npm test
           echo "Tests are successfully on the new instance, terminating old instance."
           aws ec2 create-tags --resources $ami_id --tags Key=Test_Result,Value=Success
