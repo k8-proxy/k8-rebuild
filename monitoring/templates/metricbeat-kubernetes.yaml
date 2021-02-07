@@ -24,7 +24,7 @@ data:
             - config:
                 - module: kubernetes
                   hosts: ["kube-state-metrics:8080"]
-                  period: 1s
+                  period: 10s
                   add_metadata: true
                   metricsets:
                     - state_node
@@ -43,7 +43,7 @@ data:
                   bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
                   ssl.certificate_authorities:
                     - /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-                  period: 1s
+                  period: 30s
                 # Uncomment this to get k8s events:
                 #- module: kubernetes
                 #  metricsets:
@@ -71,9 +71,6 @@ data:
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
       ssl.verification_mode: "none"
-    
-    setup.dashboards:
-      enabled: true
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -85,7 +82,7 @@ metadata:
 data:
   system.yml: |-
     - module: system
-      period: 1s
+      period: 10s
       metricsets:
         - cpu
         - load
@@ -102,7 +99,7 @@ data:
         by_memory: 5   # include top 5 processes by memory
 
     - module: system
-      period: 1s
+      period: 1m
       metricsets:
         - filesystem
         - fsstat
@@ -117,7 +114,7 @@ data:
         - pod
         - container
         - volume
-      period: 1s
+      period: 10s
       host: ${NODE_NAME}
       hosts: ["https://${NODE_NAME}:10250"]
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -130,7 +127,7 @@ data:
     - module: kubernetes
       metricsets:
         - proxy
-      period: 1s
+      period: 10s
       host: ${NODE_NAME}
       hosts: ["localhost:10249"]
 ---
@@ -186,10 +183,10 @@ spec:
           #privileged: true
         resources:
           limits:
-            cpu: 20m
+            cpu: 50m
             memory: 100Mi
           requests:
-            cpu: 10m
+            cpu: 50m
             memory: 50Mi
         volumeMounts:
         - name: config
