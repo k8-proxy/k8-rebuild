@@ -30,15 +30,14 @@
         "tags": {
             "OS_Version": "Ubuntu-20.04",
             "Base_AMI_Name": "{{ .SourceAMIName }}",
-            "Name": "k8-rebuild",
-            "Delete": "No",
-            "Scope": "Build AMI",
-            "Owner": "githubactionAMIpacker"
+            "Name": "k8-rebuild"
         },
         "run_tags": {
             "Name": "Packer Builder k8-rebuild",
             "Team": "k8-proxy/k8-rebuild",
-            "Owner": "githubactionAMIpacker"
+            "Owner": "githubactionAMIpacker",
+            "Delete": "No",
+            "Scope": "Build AMI"
         },
         "security_group_ids": "{{user `security_group_ids`}}",
         "launch_block_device_mappings": [
