@@ -1,5 +1,10 @@
 #!/bin/bash
 
+pushd $( dirname $0 )
+if [ -f ./env ] ; then
+source ./env
+fi
+
 # install k3s
 curl -sfL https://get.k3s.io | sh -
 mkdir ~/.kube && sudo install -T /etc/rancher/k3s/k3s.yaml ~/.kube/config -m 600 -o $USER
@@ -60,7 +65,8 @@ helm upgrade --install k8-rebuild \
   --set nginx.service.type=ClusterIP \
   --atomic kubernetes/
 
-# create a user
-sudo useradd -p $(openssl passwd -1 glasswall) glasswall
+# allow password login (useful when deployed to esxi)
+SSH_PASSWORD=${SSH_PASSWORD:-glasswall}
+printf "${SSH_PASSWORD}\n${SSH_PASSWORD}" | sudo passwd $USER
 sudo sed -i "s/.*PasswordAuthentication.*/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-sudo service sshd restart
+sudo service ssh restart

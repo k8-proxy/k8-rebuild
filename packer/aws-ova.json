@@ -35,7 +35,9 @@
         "run_tags": {
             "Name": "Packer Builder k8-rebuild",
             "Team": "k8-proxy/k8-rebuild",
-            "Owner": "githubactionAMIpacker"
+            "Owner": "githubactionAMIpacker",
+            "Delete": "No",
+            "Scope": "Build AMI"
         },
         "security_group_ids": "{{user `security_group_ids`}}",
         "launch_block_device_mappings": [
