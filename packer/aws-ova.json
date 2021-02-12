@@ -14,21 +14,14 @@
         "instance_type": "t3.large",
         "region": "{{user `region`}}",
         "secret_key": "{{user `aws_secret_key`}}",
-        "ssh_username": "ubuntu",
+        "ssh_username": "glasswall",
+        "ssh_password": "{{user `ssh_password`}}",
         "ssh_timeout": "20m",
         "type": "amazon-ebs",
         "ami_regions": ["eu-west-1"],
-        "source_ami_filter": {
-            "filters": {
-            "virtualization-type": "hvm",
-            "name": "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
-            "root-device-type": "ebs"
-            },
-            "owners": ["099720109477"],
-            "most_recent": true
-         },
+        "source_ami": "ami-0a224dd3649c06bce",
         "tags": {
-            "OS_Version": "Ubuntu-20.04",
+            "OS_Version": "Ubuntu-18.04",
             "Base_AMI_Name": "{{ .SourceAMIName }}",
             "Name": "k8-rebuild"
         },
