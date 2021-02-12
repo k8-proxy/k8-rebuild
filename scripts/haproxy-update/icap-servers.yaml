@@ -1,0 +1,32 @@
+us.icap.glasswall-icap.com :
+  - name  : icap-srv-1
+    ip    : 52.15.154.225
+    port  : 1344
+  - name  : icap-srv-2
+    ip    : 18.222.214.64
+    port  : 1344
+  - name  : icap-srv-3
+    ip    : 3.139.66.93
+    port  : 1344
+  - name  : icap-srv-4
+    ip    : 3.131.98.178
+    port  : 1344
+  - name  : icap-srv-5
+    ip    : 3.129.244.95
+    port  : 1344
+all.icap.glasswall-icap.com :
+  - name  : icap-srv-6
+    ip    : 52.15.154.225
+    port  : 1344
+  - name  : icap-srv-7
+    ip    : 18.222.214.64
+    port  : 1344
+  - name  : icap-srv-8
+    ip    : 3.139.66.93
+    port  : 1344
+  - name  : icap-srv-9
+    ip    : 3.131.98.178
+    port  : 1344
+  - name  : icap-srv-10
+    ip    : 3.129.244.95
+    port  : 1344

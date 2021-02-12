@@ -51,6 +51,14 @@
     ],
       "provisioners": [
         {
+          "type": "shell",
+          "inline": ["sleep 3m"]
+        },
+        {
+          "type": "shell",
+          "script": "./packer/scripts/config/init-config.sh"
+        },
+        {
             "type": "file",
             "source":"./packer/setup",
             "destination":"/tmp/"

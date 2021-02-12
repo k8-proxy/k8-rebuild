@@ -1,0 +1,20 @@
+  - name: Remove EC2 instance with specific tag
+    hosts: localhost
+    connection: local
+    gather_facts: False
+
+    vars:
+      delete_tag: deletemenow
+
+    tasks:
+      - name: Gather instances info
+        community.aws.ec2_instance_info:
+        register: result
+      - name: delete instances with defined tag using id
+        amazon.aws.ec2:
+          instance_id: ["{{item.instance_id}}"]
+          wait: true
+          state: 'absent'
+        loop: "{{result.instances}}"
+        when: item.tags.{{delete_tag}} is defined
+
