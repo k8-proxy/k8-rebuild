@@ -5,6 +5,11 @@ if [ -f ./env ] ; then
 source ./env
 fi
 
+if [ -f ./update_partition_size.sh ] ; then
+chmod +x ./update_partition_size.sh
+./update_partition_size.sh
+fi
+
 # install k3s
 curl -sfL https://get.k3s.io | sh -
 mkdir ~/.kube && sudo install -T /etc/rancher/k3s/k3s.yaml ~/.kube/config -m 600 -o $USER
