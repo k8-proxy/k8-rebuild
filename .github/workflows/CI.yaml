@@ -8,6 +8,7 @@ env:
 on:
   workflow_dispatch:
 
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-ami:
@@ -52,6 +53,10 @@ jobs:
     - name: Build AMI/OVA
       run: |
         chmod +x packer/ova-check.sh
+        REF=${{ github.ref }}
+        cat > packer/setup/env <<EOF
+        BRANCH=$( echo $REF | cut -d"/" -f3)
+        EOF
         packer build -color=false -on-error=cleanup -var github_sha=${{ github.sha }} -var vm_name=k8-rebuild -var region=${{ env.AWS_DEFAULT_REGION }} -var aws_access_key=${{ secrets.AWS_ACCESS_KEY }} -var aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }} packer/aws-ova.json
 
   deploy-ami:
@@ -77,7 +82,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
         run: |
           ami_id=$(aws ec2 describe-images --filters "Name=name,Values=k8-rebuild-${{ github.sha }}" --query 'Images[*].[ImageId]' --output text)
-          result=$(aws ec2 run-instances --image-id $ami_id --count 1 --instance-type t2.large --key-name k8-rebuild --security-group-ids sg-0120400d5eefb0b9e --tag-specifications 'ResourceType=instance, Tags=[{Key=Name,Value=dev-k8-rebuild}, {Key=Team, Value=k8-proxy/k8-rebuild}, {Key=Owner, Value=githubactionAMIpacker}, {Key=AMI_Name, Value=k8-rebuild-${{ github.sha }}}]')
+          result=$(aws ec2 run-instances --image-id $ami_id --count 1 --instance-type t2.large --key-name k8-rebuild --security-group-ids sg-0120400d5eefb0b9e --tag-specifications 'ResourceType=instance, Tags=[{Key=Name,Value=dev-k8-rebuild}, {Key=Team, Value=k8-proxy/k8-rebuild}, {Key=Scope, Value=k8-proxy/k8-rebuild}, {Key=Delete, Value=No}, {Key=Owner, Value=githubactionAMIpacker}, {Key=AMI_Name, Value=k8-rebuild-${{ github.sha }}}]')
           sleep 10m
           instance_id=$(echo $result | jq -r ".Instances[0].InstanceId")
           echo "$instance_id is created."
