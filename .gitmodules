@@ -1,6 +1,8 @@
 [submodule "k8-rebuild-file-drop"]
 	path = k8-rebuild-file-drop
 	url = https://github.com/k8-proxy/k8-rebuild-file-drop
+	branch = sow_version
 [submodule "k8-rebuild-rest-api"]
 	path = k8-rebuild-rest-api
 	url = https://github.com/k8-proxy/k8-rebuild-rest-api
+	branch = sow_version
