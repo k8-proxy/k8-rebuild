@@ -10,6 +10,6 @@ nginx:
             proxy_pass http://sow-rest-ui/;
         }
         location /api {
-            proxy_pass http://sow-rest-api;
+                proxy_pass http://proxy-rest-api.icap-adaptation.svc.cluster.local:8080;
         }
     }
