@@ -10,7 +10,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - name: http-metrics
-    port: 8080
+    port: 8082
     targetPort: http-metrics
   - name: telemetry
     port: 8081
