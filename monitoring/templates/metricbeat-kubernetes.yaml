@@ -23,7 +23,7 @@ data:
           templates:
             - config:
                 - module: kubernetes
-                  hosts: ["kube-state-metrics:8080"]
+                  hosts: ["kube-state-metrics:8082"]
                   period: 1s
                   add_metadata: true
                   metricsets:
