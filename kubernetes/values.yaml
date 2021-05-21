@@ -13,10 +13,9 @@ nginx:
             proxy_pass http://sow-rest-api;
         }
     }
-    
 sow-rest-ui:
   image:
     registry: k8serviceaccount
     repository: k8-rebuild-file-drop
     imagePullPolicy: Never
-    tag: latest
+    tag: main-aa38a4a
