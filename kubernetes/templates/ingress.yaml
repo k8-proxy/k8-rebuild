@@ -11,9 +11,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: proxy-rest-api
+            name: sow-rest-api
             port: 
-              number: 8080
+              number: 80
       - path: /
         pathType: Prefix
         backend:
