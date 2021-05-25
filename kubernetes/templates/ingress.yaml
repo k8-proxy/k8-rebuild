@@ -15,10 +15,10 @@ spec:
             port: 
               number: 80
      - path: /api
-        pathType: Prefix
-        backend:
-          service:
-            name: "sow-rest-api"
-            port: 
-              number: 80
+       pathType: Prefix
+       backend:
+        service:
+          name: "sow-rest-api"
+          port: 
+            number: 80
 {{- end -}}
