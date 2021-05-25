@@ -18,4 +18,4 @@ sow-rest-ui:
     registry: k8serviceaccount
     repository: k8-rebuild-file-drop
     imagePullPolicy: Never
-    tag: main-aa38a4a
+    tag: main-c6db7c2
