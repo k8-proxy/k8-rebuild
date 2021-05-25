@@ -7,18 +7,18 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /api
         pathType: Prefix
         backend:
           service:
-            name: "sow-rest-ui"
+            name: "sow-rest-api"
             port: 
               number: 80
-     - path: /api
+     - path: /
        pathType: Prefix
        backend:
-        service:
-          name: "sow-rest-api"
-          port: 
-            number: 80
+         service:
+           name: "sow-rest-ui"
+           port: 
+             number: 80
 {{- end -}}
