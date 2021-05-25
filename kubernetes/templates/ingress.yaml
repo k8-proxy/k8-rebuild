@@ -11,7 +11,14 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: "{{ .Release.Name }}-sow-rest"
+            name: "sow-rest-ui"
             port: 
               number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: "proxy-rest-api.icap-adaptation.svc.cluster.local"
+            port: 
+              number: 8080
 {{- end -}}
