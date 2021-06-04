@@ -7,8 +7,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: k8-rebuild
-  labels:
-    kubeVersion: {{ .Capabilities.KubeVersion.Version }}
 spec:
   rules:
   - http:
